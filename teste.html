@@ -1,0 +1,290 @@
+<!DOCTYPE html> <!-- Informa ao navegador que este é um documento HTML5 -->
+<html lang="pt-br"> <!-- Define o idioma do conteúdo como português do Brasil -->
+
+<head>
+  <!-- Define a codificação de caracteres para suportar acentos e caracteres especiais -->
+  <meta charset="UTF-8">
+
+  <!-- Torna o layout responsivo, adaptando a largura ao dispositivo do usuário -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Título da página que aparece na aba do navegador -->
+  <title>Filmes Preferidos - Vingadores</title>
+
+  <style>
+    /* ==========================
+       RESET BÁSICO
+       ========================== */
+    * {
+      margin: 0;               /* Remove margens padrão */
+      padding: 0;              /* Remove espaçamentos internos padrão */
+      box-sizing: border-box; /* Inclui padding e border dentro do tamanho total do elemento */
+    }
+
+    /* ==========================
+       ESTILO GERAL DO SITE
+       ========================== */
+    body {
+      font-family: 'Poppins', sans-serif; /* Fonte moderna */
+      color: white;                       /* Cor do texto */
+      background-color: #0b0014;          /* Cor de fundo escura */
+      overflow-x: hidden;                 /* Evita barra de rolagem lateral */
+    }
+
+    /* ==========================
+       CABEÇALHO (HEADER)
+       ========================== */
+    header {
+      position: relative;      /* Necessário para posicionar o gradiente por cima com ::before */
+      height: 60vh;            /* Altura de 60% da tela */
+      background: url(https://wallpapers.com/images/hd/4k-avengers-fight-stance-xkimrnmv85vgai6m.jpg);
+      background-size: cover; /* A imagem cobre todo o espaço */
+      display: flex;          /* Usado para alinhar conteúdo verticalmente */
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 60px;
+    }
+
+    header::before {
+      content: '';             /* Necessário para o pseudo-elemento aparecer */
+      position: absolute;      /* Cobre todo o header */
+      inset: 0;                /* Atalho para top:0; right:0; bottom:0; left:0 */
+      background: linear-gradient(180deg, rgba(0,0,0,0.6), rgba(11,0,20,1)); /* Gradiente escuro para legibilidade */
+    }
+
+    /* ==========================
+       MENU DE NAVEGAÇÃO (NAV)
+       ========================== */
+    nav {
+      position: absolute;      /* Fixa no topo do header */
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between; /* Espaço entre título e menu */
+      align-items: center;
+      padding: 20px 60px;
+      z-index: 10;             /* Garante que fique acima do gradiente */
+    }
+
+    nav h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #ffcc00;          /* Amarelo */
+      letter-spacing: 1px;
+    }
+
+    nav .menu {
+      display: flex;
+      gap: 30px;               /* Espaçamento entre links */
+    }
+
+    nav a {
+      text-decoration: none;
+      color: white;
+      font-weight: 500;
+      transition: color 0.3s, transform 0.3s; /* Efeito suave ao passar o mouse */
+    }
+
+    nav a:hover {
+      color: #ffcc00;          /* Cor ao passar o mouse */
+      transform: scale(1.1);   /* Aumenta levemente */
+    }
+
+    /* ==========================
+       TEXTO PRINCIPAL DO HEADER
+       ========================== */
+    .header-info {
+      position: relative;
+      z-index: 1;              /* Garante que fique acima do gradiente escuro */
+      max-width: 600px;        /* Largura máxima para melhor leitura */
+    }
+
+    .header-info h2 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      text-shadow: 0 0 10px rgba(0,0,0,0.8); /* Deixa o texto mais visível sobre a imagem */
+    }
+
+    .header-info p {
+      font-size: 1.1rem;
+      color: #ddd;
+      line-height: 1.6;
+      text-shadow: 0 0 5px rgba(0,0,0,0.8);
+    }
+
+    /* ==========================
+       SEÇÃO DE FILMES RECOMENDADOS
+       ========================== */
+    .recommended {
+      height: 50vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 60px;
+      background: 
+        linear-gradient(180deg, rgba(11,0,20,1), rgba(20,0,40,1)), /* Gradiente para escurecer imagem */
+        url('https://images.alphacoders.com/890/thumb-1920-890203.jpg') no-repeat center center/cover;
+      background-attachment: fixed; /* Efeito paralaxe */
+      background-size: cover;
+      position: relative;
+    }
+
+    .recommended::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6); /* Sobreposição escura */
+      z-index: 0;
+    }
+
+    .recommended h2 {
+      color: #ffcc00;
+      font-size: 1.8rem;
+      margin-bottom: 25px;
+      z-index: 1;
+      position: relative;
+    }
+
+    .card-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap; /* Quebra linha caso a tela seja pequena */
+      gap: 25px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ==========================
+       ESTILO DOS CARDS
+       ========================== */
+    .card {
+      width: 180px;
+      height: 270px;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #222;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    }
+
+    .card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* Cobre todo o card sem distorcer */
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: scale(1.07);
+      box-shadow: 0 8px 25px rgba(255, 204, 0, 0.4);
+    }
+
+    .card:hover img {
+      transform: scale(1.1); /* Zoom na imagem */
+    }
+
+    /* ==========================
+       RODAPÉ (FOOTER)
+       ========================== */
+    footer {
+      text-align: center;
+      padding: 25px 0;
+      background: linear-gradient(180deg, #15002a, #0b0014);
+      font-size: 0.9rem;
+      color: #bbb;
+    }
+
+    footer span {
+      color: #ffcc00; /* Destaque no nome do autor */
+    }
+
+    /* ==========================
+       RESPONSIVIDADE
+       ========================== */
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column; /* Empilha elementos do menu no celular */
+        gap: 10px;
+      }
+
+      .header-info h2 {
+        font-size: 2rem; /* Reduz tamanho do título */
+      }
+
+      .recommended {
+        height: auto; /* Remove altura fixa para não cortar conteúdo */
+        padding: 40px 30px;
+      }
+
+      .card {
+        width: 130px;
+        height: 200px; /* Reduz tamanho dos cards no mobile */
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ==========================
+       CABEÇALHO (HEADER)
+       ========================== -->
+  <header>
+    <nav>
+      <h1>Falcão Flix</h1> <!-- Nome fictício da plataforma -->
+      <div class="menu">
+        <!-- Menu de navegação com links genéricos -->
+        <a href="#">Todos</a>
+        <a href="#">Movies</a>
+        <a href="#">TV Shows</a>
+        <a href="#">Live TV</a>
+      </div>
+    </nav>
+
+    <div class="header-info">
+      <h2>Vingadores: Guerra Infinita</h2>
+      <p>Os heróis mais poderosos da Terra enfrentam Thanos em uma batalha épica pelo destino do universo. Um filme que redefiniu o cinema de super-heróis.</p>
+    </div>
+  </header>
+
+  <!-- ==========================
+       SEÇÃO DE FILMES RECOMENDADOS
+       ========================== -->
+  <section class="recommended">
+    <h2>Recommended</h2> <!-- Título da seção de filmes recomendados -->
+
+    <div class="card-container">
+      <!-- Cada "card" representa um filme com uma imagem -->
+      <div class="card">
+        <img src="https://image.tmdb.org/t/p/w500/89QTZmn34iwXYeCpVxhC9UrT8sX.jpg" alt="Filme">
+      </div>
+      <div class="card">
+        <img src="https://image.tmdb.org/t/p/w500/jrgifaYeUtTnaH7NF5Drkgjg2MB.jpg" alt="Filme">
+      </div>
+      <div class="card">
+        <img src="https://image.tmdb.org/t/p/w500/6ELCZlTA5lGUops70hKdB83WJxH.jpg" alt="Filme">
+      </div>
+      <div class="card">
+        <img src="https://image.tmdb.org/t/p/w500/t6HIqrRAclMCA60NsSmeqe9RmNV.jpg" alt="Filme">
+      </div>
+      <div class="card">
+        <img src="https://image.tmdb.org/t/p/w500/kdPMUMJzyYAc4roD52qavX0nLIC.jpg" alt="Filme">
+      </div>
+      <div class="card">
+        <img src="https://image.tmdb.org/t/p/w500/q719jXXEzOoYaps6babgKnONONX.jpg" alt="Filme">
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================
+       RODAPÉ (FOOTER)
+       ========================== -->
+  <footer>
+    <!-- Informações de rodapé com destaque para o nome -->
+    <p>Desenvolvido com 💛 por <span>Guilherme Falcão</span> | 2025</p>
+  </footer>
+
+</body>
+</html>
